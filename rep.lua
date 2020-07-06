@@ -2,6 +2,10 @@ local json_util = require "cjson.safe"
 local aes = require "resty.aes"
 local str = require "resty.string"
 local ngx_encode_base64 = ngx.encode_base64
+if ngx.status == 500
+then
+    return
+end
 
 local function res_json(resp)
     local str = json_util.decode(resp)
@@ -14,11 +18,6 @@ local function res_json(resp)
     local encrypted = aes_128_cbc_with_iv:encrypt(data)
     return ngx_encode_base64(encrypted)
     -- return data
-end
-
-if (ngx.var.exit)
-then
-return
 end
 
 local resp_body = string.sub(ngx.arg[1],1,10000) 

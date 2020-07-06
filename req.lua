@@ -140,5 +140,5 @@ then
     ngx.req.set_body_data(table.concat(data, "&")) 
 end
 local random = resty_random.bytes(16)
-ngx.var.iv_code = string.sub(str.to_hex(random), 8, 24)
+ngx.var.iv_code = string.sub(str.to_hex(random), 9, 24)
 
